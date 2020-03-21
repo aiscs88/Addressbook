@@ -147,7 +147,7 @@ class AddressController extends Controller
             $em->flush();
         }
         
-        return $this->redirectToRoute("edit_address",["id"=>$id]);
+        return $this->render('address/index.html.twig',["address"=>$address,"list"=>$this->getActiveAddresses()]);
     }
     /**
      * @Route("/address/add", name="create_address", methods={"POST"})

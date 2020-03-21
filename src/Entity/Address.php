@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AddressRepository")
+ * @UniqueEntity("email",message="This Email address is already used")
+ * @UniqueEntity("phone",message="This Phone number is already used")
+ * @UniqueEntity(fields = {"first_name","last_name"},errorPath="first_name",message="This Name is already used")
  */
 class Address
 {
@@ -55,7 +59,7 @@ class Address
     /**
      * @ORM\Column(type="decimal", precision=10, scale=0, nullable=true)
      * @Assert\NotBlank(message = "Please enter a valid phone no")
-     * @Assert\Length(min = "10", minMessage = "Phone number must contain at least {{ limit }} numbers")
+     * @Assert\Length(min = "10",max="10",exactMessage="Phone number must contain {{ limit }} numbers")
      * @Assert\Type(type = "numeric",message ="Phone no must contain numbers only")
      */
     private $phone;
