@@ -1,0 +1,255 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<main role="main">
+      <section class="subheader">
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    
+                </div>
+
+                <div class="col-lg-8">
+                    <form action=" {{ url('search_address') }}" method="POST">
+                        <div class="input-group mb-3">
+                            <input type="text" name="search" class="form-control"
+                                placeholder="Search in ( first name, last name, phone number or email)">
+                            <div class="input-group-append">
+                                <button type="submit">search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-lg-2">
+                    <a class="btn btn-success pull-right" href="{{ url('address') }}">Add</a>
+                </div>
+            </div>
+        </div>
+
+
+
+      </section>
+
+     
+
+        <section class="content">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-2 col-sm-12">
+                        <ul class="contact_list">
+
+                        {% for a in list %}
+                            <li>
+                                <a href="{{ url('edit_address',{ 'id': a.getID()}) }}">
+                                <img src="{{ asset('imgs/user.svg') }}" alt=""> 
+                                <span>{{ a.getFirstName() }}</span>
+                                </a>
+                            </li>
+
+                            {% endfor %}
+                            
+                            
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-10 col-sm-12">
+                        <br>
+                        
+                        <h3>Details</h3>
+                        <hr>
+                        
+                         <section>
+                            {% for message in app.flashes('notice') %}
+                                <div class="alert alert-danger col-lg-4">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </section>
+
+
+                        <form action="{{ address and address.getId() ? url('update_address',{'id': address.getId()}) : url('create_address') }}" method="post">
+                            <div class="row">
+                            
+                                <div class="col-lg-8">
+                                    <div class="row">
+                            
+                                        <div class="form-group col-lg-6">
+                                            <label for="">First Name *</label>
+                                            <input type="text" class="form-control" value="{{ address ? address.getFirstName() : '' }}"
+                                                id="first_name" name="first_name" placeholder="First Name">
+                                            {% for msg in app.flashes('first_name') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                            
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Last Name *</label>
+                                            <input type="text" class="form-control" value="{{ address ? address.getLastName() : '' }}"
+                                                id="last_name" name="last_name" placeholder="Last Name">
+                                            {% for msg in app.flashes('last_name') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <h5>Contact Information</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Phone Number *</label>
+                                            <input type="text" class="form-control" value="{{ address ? address.getPhone() : '' }}" id="phone_no"
+                                                name="phone_no" placeholder="">
+                                            {% for msg in app.flashes('phone') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                            
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Email *</label>
+                                            <input type="email" value="{{ address ? address.getEmail() : '' }}" class="form-control" id="email"
+                                                name="email" placeholder="">
+                                            {% for msg in app.flashes('email') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                            
+                                    </div>
+                            
+                                    <br>
+                                    <h5>Address Information</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="form-group col-lg-8">
+                                            <label for="">Street</label>
+                                            <input type="text" class="form-control" value="{{  address ? address.getStreet() : '' }}" id="street"
+                                                name="street" placeholder="Street">
+                                            {% for msg in app.flashes('street') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                            
+                                        <div class="form-group col-lg-4">
+                                            <label for="">Street No.</label>
+                                            <input type="number" value="{{  address ? address.getStreetNo() : '' }}" class="form-control"
+                                                id="street_no" name="street_no" placeholder="xxxxx">
+                                            {% for msg in app.flashes('street_no') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                            
+                                    <div class="row">
+                                        <div class="form-group col-lg-6">
+                                            <label for="">Country</label>
+                                            <select class="form-control" name="country" id="country">
+                                                <option {{ address and address.getCountry() == 'NA' ? 'selected' : '' }} value="NA">Please Select
+                                                </option>
+                                                <option {{ address and address.getCountry() == 'DE'  ? 'selected' : ''}} value="DE">Deutschland
+                                                </option>
+                                                <option {{ address and address.getCountry() == 'US'  ? 'selected' : ''}} value="US">USA</option>
+                                            </select>
+                                        </div>
+                            
+                                        <div class="form-group col-lg-4">
+                                            <label for="">City</label>
+                                            <input type="text" value="{{  address ? address.getCity() : '' }}" class="form-control" id="city"
+                                                name="city" placeholder="City">
+                                            {% for msg in app.flashes('city') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="form-group col-lg-2">
+                                            <label for="">Zip Code</label>
+                                            <input type="number" class="form-control" value="{{ address ? address.getZip() : '' }}" id="zip_code"
+                                                name="zip_code" placeholder="xxxxx">
+                                            {% for msg in app.flashes('zip_code') %}
+                                            <span class="error_msg">{{ msg }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                            
+                            
+                                </div>
+                            
+                                <div class="col-lg-2 col-sm-12 text-center">
+                                    <img class="user_img" src="{{ asset('imgs/user.svg') }}" alt="">
+                            
+                                    <div class="text-center">
+                                        <span>Date of Birth</span>
+                                        <div id="datepicker"></div>
+                                        <input type="hidden" value="{{ address and not address.getBirthday() == null ? address.getBirthday().format('Y-m-d 00:00:00') : '' }}"
+                                            id="birth_date" name="birth_date">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-12 text-center">
+                                </div>
+                            
+                                
+                            
+                            </div>
+                            <div class="row">
+                                    <div class="col-lg-2">
+                                        <span>* Manditory fields</span>
+                                    </div>
+                                    <div class="col-lg-6" style="text-align: right;">
+                                        {% if (not address) or ( address and address.getId() == NULL) %}
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                        {% endif %}
+                            
+                                        {% if address and not address.getId() == NULL  %}
+                                        <button type="submit" href="{{ url('update_address',{"id": address.getId() }) }}"
+                                            class="btn btn-warning">Update</button>
+                                        {% endif %}
+                            
+                                        {% if address and not address.getId() == NULL  %}
+                                        <a type="button" href="{{ url('delete_address',{"id": address.getId() }) }}"
+                                            onclick="return confirm('Are you sure you want to delete {{ address.getFirstName() }}')"
+                                            class="btn btn-danger">Delete</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+      </main>
+      {% endblock %}
+
+      
+{% block bottom %}
+
+
+<script>
+
+    $(function () {
+        $("#datepicker").datepicker({
+            changeMonth: true,
+            dateFormat: "yy-mm-dd 00:00:00",
+            changeYear: true,
+            onSelect: function (d) {
+                $('#birth_date').val(d);
+            }
+        });
+
+        {% if address and not address.getBirthday() == null%}
+
+            $("#datepicker").datepicker("setDate","{{address.getBirthday().format('Y-m-d 00:00:00')}}");
+
+        {% endif %}
+    });
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+
+
+.navbar-dark{
+
+    background-color: #353535;
+}
+
+.subheader{
+    background-color: #f8f8f8;
+    padding: 20px;
+}
+
+.user_img{
+    width: 200px;
+    margin-bottom: 55px;
+}
+
+
+.contact_list
+{
+    margin-top: 20px;
+    list-style: none;
+    max-height: 575px;
+    overflow-y: scroll;
+}
+
+.contact_list > li{
+    padding-bottom: 5px;
+}
+
+.contact_list a{
+
+    color: #555;
+}
+
+.contact_list a:hover{
+    text-decoration: none;
+    opacity: .7;
+}
+
+.error_msg{
+    color: red;
+}

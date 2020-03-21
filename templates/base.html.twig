@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-white">
+
+
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-dark box-shadow">
+            <div class="container-fluid d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <strong>Contact Manager</strong>
+                </a>
+                
+            </div>
+        </div>
+    </header>
+
+    {% block content%}{% endblock %} 
+
+
+</body>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    {% block bottom%}{% endblock %} 
+</html>
